@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Career Path — Class 8 Discovery Quiz</title>
+<style>
+  :root{
+    --primary:#6C5CE7;
+    --primary-light:#F3F0FF;
+    --primary-border:#D4CFFF;
+    --text:#1E1B2E;
+    --text-soft:#6B6580;
+    --text-muted:#9B95AE;
+    --border:#E8E5F0;
+    --card:#FFFFFF;
+    --track-bg:#E5E3F0;
+    --badge-bg:#EEEAFF;
+    --wildcard-border:#F0D9A8;
+    --wildcard-accent:#B8860B;
+    --amber:#C77800;
+    --amber-light:#FFF3E0;
+    --green:#2E9E6C;
+    --green-light:#E9F8F1;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:linear-gradient(168deg,#F8F7FF 0%,#FFF8F0 50%,#F0F4FF 100%);
+    color:var(--text);
+  }
+  .wrapper{ min-height:100vh; display:flex; flex-direction:column; align-items:center; }
+  .container{ width:100%; max-width:520px; padding:0 20px; }
+  .centered-full{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+  h1,h2,h3,p{ margin:0; }
+  .btn-primary{
+    display:inline-block; padding:15px 40px; border-radius:14px; border:none;
+    background:linear-gradient(135deg,var(--primary),#8B7CF7); color:#fff;
+    font-size:17px; font-weight:700; cursor:pointer;
+    box-shadow:0 4px 24px rgba(108,92,231,.3); letter-spacing:.01em;
+    font-family:inherit;
+  }
+  .btn-primary.full{ width:100%; margin-top:8px; }
+  .btn-primary.small{ padding:10px 22px; font-size:14px; box-shadow:none; }
+  .link-btn{
+    background:none; border:none; color:var(--text-muted); font-size:14px;
+    font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+    font-family:inherit; padding:0;
+  }
+  .back-link{ text-decoration:none; margin-bottom:14px; display:inline-flex; align-items:center; gap:6px; }
+  .option{
+    display:flex; align-items:center; gap:12px; padding:13px 16px; margin-bottom:10px;
+    border-radius:14px; border:2px solid var(--border); background:var(--card);
+    cursor:pointer; font-size:15px; line-height:1.4; transition:all .15s ease; user-select:none;
+  }
+  .option.selected{ border-color:var(--primary); background:var(--primary-light); font-weight:600; color:#4A3D8F; }
+  .radio{ width:20px; height:20px; min-width:20px; border-radius:50%; border:2px solid #C5C0D8; background:#fff; }
+  .radio.selected{ border:6px solid var(--primary); }
+  .checkbox{
+    width:20px; height:20px; min-width:20px; border-radius:6px; border:2px solid #C5C0D8; background:#fff;
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700;
+  }
+  .checkbox.selected{ border:none; background:var(--primary); }
+  .rank-badge{
+    width:24px; height:24px; min-width:24px; border-radius:50%; border:2px solid #C5C0D8;
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700;
+  }
+  .rank-badge.selected{ border:none; background:var(--primary); }
+  .confirm-btn{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    width:calc(100% - 40px); max-width:480px; padding:15px 24px; border-radius:14px; border:none;
+    background:var(--track-bg); color:#A09BB3; font-size:16px; font-weight:700;
+    cursor:default; transition:all .2s ease; z-index:20; font-family:inherit;
+  }
+  .confirm-btn.active{ background:linear-gradient(135deg,var(--primary),#8B7CF7); color:#fff; cursor:pointer; box-shadow:0 4px 20px rgba(108,92,231,.3); }
+  .progress-bar{
+    position:sticky; top:0; z-index:10; background:rgba(248,247,255,.92); backdrop-filter:blur(10px);
+    padding:14px 20px 10px; max-width:520px; width:100%;
+  }
+  .progress-track{ height:4px; border-radius:2px; background:var(--track-bg); overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; background:linear-gradient(90deg,var(--primary),#A87BFF); transition:width .4s ease; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px; color:var(--text-muted); font-weight:500; }
+  .section-badge{
+    display:inline-flex; align-items:center; gap:5px; background:var(--badge-bg); padding:3px 10px;
+    border-radius:20px; font-size:11px; font-weight:600; color:var(--primary); text-transform:uppercase; letter-spacing:.06em;
+  }
+  .pill{ display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:500; margin:3px 4px 3px 0; }
+  .pill-green{ background:var(--green-light); color:var(--green); font-weight:600; }
+  .pill-purple{ background:var(--primary-light); color:var(--primary); }
+  .pill-amber{ background:var(--amber-light); color:var(--amber); }
+  .detail-label{ font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 5px; }
+  .result-card{
+    display:flex; align-items:center; gap:14px; background:var(--card); border-radius:16px;
+    padding:16px 18px; margin-bottom:12px; border:2px solid var(--border); cursor:pointer; transition:all .2s ease;
+  }
+  .result-card:hover{ border-color:var(--primary-border); }
+  .result-card.wildcard{ background:linear-gradient(135deg,#FFFBF0,#FFF5E6); border-color:var(--wildcard-border); }
+  .badge-match{ display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; margin-bottom:4px; background:var(--badge-bg); color:var(--primary); }
+  .badge-match.wildcard{ background:#FFF0D4; color:var(--wildcard-accent); }
+  .reason-box{ background:var(--primary-light); border-radius:14px; padding:14px 16px; margin-bottom:16px; }
+  .reason-box p.reason-title{ font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; }
+  .reason-box p.reason-line{ font-size:13.5px; color:#4A3D8F; margin:4px 0; line-height:1.5; }
+  .funfact-box{ background:linear-gradient(135deg,#FFFBF0,#FFF5E6); border-radius:14px; padding:14px 16px; margin-bottom:20px; border:1px solid var(--wildcard-border); }
+  .funfact-box p.funfact-title{ font-size:11px; font-weight:700; color:var(--wildcard-accent); text-transform:uppercase; letter-spacing:.06em; margin:0 0 6px; }
+  .funfact-box p.funfact-body{ font-size:13.5px; color:#6B5420; line-height:1.5; margin:0; }
+  .detail-hero{ text-align:center; padding:28px 20px; border-radius:20px; margin-bottom:20px; background:var(--primary-light); border:2px solid var(--primary-border); }
+  .detail-hero.wildcard{ background:linear-gradient(135deg,#FFFBF0,#FFF5E6); border-color:var(--wildcard-border); }
+  .detail-hero .hero-badge{ display:inline-block; padding:3px 12px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:8px; background:#fff; color:var(--primary); }
+  .detail-hero.wildcard .hero-badge{ background:#FFF0D4; color:var(--wildcard-accent); }
+  .nav-row{ display:flex; justify-content:space-between; gap:10px; margin-top:8px; }
+  .nav-btn{ flex:1; padding:12px 10px; border-radius:12px; border:2px solid var(--border); background:#fff; font-size:13px; font-weight:700; cursor:pointer; color:var(--text); font-family:inherit; }
+  .nav-btn:disabled{ color:var(--text-muted); opacity:.5; cursor:default; }
+  .nav-btn.next{ border:none; background:linear-gradient(135deg,var(--primary),#8B7CF7); color:#fff; }
+  .nav-btn.next:disabled{ background:var(--track-bg); color:var(--text-muted); }
+  .action-row{ text-align:center; margin-top:20px; display:flex; justify-content:center; gap:18px; }
+  .mute-btn{
+    position:fixed; top:14px; right:14px; z-index:50; width:42px; height:42px; border-radius:50%;
+    border:2px solid var(--border); background:#fff; font-size:18px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.08);
+  }
+  .report-header{ display:flex; justify-content:space-between; align-items:center; padding:20px 0; }
+  .report-hint{ font-size:12.5px; color:var(--text-muted); margin:-8px 0 16px; line-height:1.5; }
+  .report-title{ text-align:center; padding:12px 0 28px; border-bottom:2px solid var(--border); margin-bottom:24px; }
+  .qa-block{ margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .qa-block p.qa-meta{ font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; margin:0 0 3px; }
+  .qa-block p.qa-q{ font-size:14px; font-weight:600; margin:0 0 4px; }
+  .qa-block p.qa-a{ font-size:13.5px; color:#3D3652; margin:0; }
+  .career-block{ margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); break-inside:avoid; }
+  .career-block:last-child{ border-bottom:none; }
+  @media print{
+    .no-print{ display:none !important; }
+    body{ background:#fff !important; }
+  }
+</style>
+</head>
+<body>
+<button class="mute-btn no-print" id="muteBtn" title="Toggle sound">🔊</button>
+<div id="app"></div>
+<script>
+
+// ── Career roles: broad, age-appropriate set for a Class 8 student ──
+const ROLES = {
+  doctor: {
+    title: "Doctor",
+    emoji: "🩺",
+    desc: "Diagnose illnesses, treat patients, and help people get healthy and stay healthy — as a family doctor, surgeon, pediatrician, or specialist.",
+    daylife: "Examines patients, orders and reads tests, explains what's wrong in simple words, and sometimes performs procedures or surgery. Every day brings different people and problems.",
+    subjects: ["Biology", "Chemistry", "Physics"],
+    skills: ["Curious about how the human body works", "Stays calm under pressure", "Notices small details"],
+    grow: ["Build strong Biology & Chemistry basics", "Practice patience with long-term goals", "Work on explaining things clearly and kindly"],
+    path: "After Class 10 → Science (PCB) in 11th–12th → NEET entrance exam → MBBS (5.5 years) → optional specialization",
+    funfact: "India needs far more doctors, especially outside big cities — it's one of the most trusted and needed jobs anywhere.",
+  },
+  engineer: {
+    title: "Engineer",
+    emoji: "🛠️",
+    desc: "Design and build things that work — machines, vehicles, bridges, electronics, or robots. Different branches build very different things.",
+    daylife: "Sketches designs, does calculations, builds and tests prototypes, fixes what breaks, and works with both tools and teams.",
+    subjects: ["Math", "Physics", "Design & Craft"],
+    skills: ["Enjoys building or fixing things", "Comfortable with numbers and logic", "Patient enough to test and improve"],
+    grow: ["Strengthen Math and Physics fundamentals", "Try hands-on projects (robotics kits, model-building)", "Learn a basic design tool"],
+    path: "After Class 10 → Science (PCM) in 11th–12th → JEE / state entrance exam → B.Tech (4 years) → choose a specialization",
+    funfact: "From your phone to the metro to the water in your taps — an engineer designed it.",
+  },
+  software_dev: {
+    title: "Software Developer / Game Designer",
+    emoji: "💻",
+    desc: "Build the apps, websites, and games people use every day by turning ideas into working code.",
+    daylife: "Writes and tests code, fixes bugs, plans features with a team, and constantly learns new tools and languages.",
+    subjects: ["Math", "Computer Science / IT"],
+    skills: ["Enjoys logic puzzles and games", "Comfortable with trial and error", "Curious about how apps and games actually work"],
+    grow: ["Start coding — Scratch or Python are great first steps", "Build small personal projects", "Practice breaking big problems into small steps"],
+    path: "After Class 10 → Science (PCM) or a computer-focused stream → JEE/BCA/B.Tech in CS, or a strong self-taught portfolio",
+    funfact: "Many well-known apps and companies were started by people who began coding as teenagers.",
+  },
+  scientist: {
+    title: "Scientist / Researcher",
+    emoji: "🔬",
+    desc: "Investigate how the world works — from atoms to galaxies to genes — by asking questions and running experiments to find answers nobody knows yet.",
+    daylife: "Designs experiments, collects and studies data, reads other people's research, and shares new discoveries with the world.",
+    subjects: ["Physics", "Chemistry", "Biology", "Math"],
+    skills: ["Deep curiosity about 'why' and 'how'", "Comfortable not knowing the answer yet", "Careful, patient observation"],
+    grow: ["Try science-fair style projects at home", "Read about new discoveries", "Practice testing your own guesses instead of just accepting them"],
+    path: "After Class 10 → Science stream in 11th–12th → BSc / Integrated MSc → PhD or a research institute (ISRO, DRDO, IISc, and more)",
+    funfact: "India's space missions were built by scientists who started out simply being curious about the sky.",
+  },
+  teacher: {
+    title: "Teacher / Educator",
+    emoji: "📚",
+    desc: "Help students understand new ideas, build confidence, and discover what they're good at — in any subject, any age group.",
+    daylife: "Plans lessons, explains the same idea in different ways until it clicks, gives feedback, and often mentors students beyond the classroom.",
+    subjects: ["Any subject you love", "Communication"],
+    skills: ["Enjoys explaining things to others", "Patient with people who are still learning", "Genuinely wants others to grow"],
+    grow: ["Practice explaining topics to friends or younger students", "Work on public speaking", "Notice how different people learn differently"],
+    path: "After Class 10 → any stream in 11th–12th → Bachelor's degree in your subject → B.Ed → teaching (schools, coaching, ed-tech)",
+    funfact: "Almost everyone can name the one teacher who changed how they saw themselves.",
+  },
+  lawyer: {
+    title: "Lawyer / Judge",
+    emoji: "⚖️",
+    desc: "Represent people, argue cases, and help interpret and enforce laws — protecting rights and resolving disputes.",
+    daylife: "Researches cases, drafts arguments, meets clients, and presents in court or negotiates settlements outside it.",
+    subjects: ["English", "Social Studies / Civics", "Debate"],
+    skills: ["Enjoys debating and arguing a point", "Reads people and situations well", "Cares deeply about fairness"],
+    grow: ["Join debate or Model UN clubs", "Follow current events and how laws affect people", "Practice building an argument backed by evidence"],
+    path: "After Class 10 → any stream in 11th–12th → CLAT entrance → 5-year integrated law degree (BA LLB) or LLB after graduation",
+    funfact: "Lawyers don't only fight in court — many work on human rights, business deals, or writing brand-new laws.",
+  },
+  entrepreneur: {
+    title: "Entrepreneur / Business Owner",
+    emoji: "🚀",
+    desc: "Spot a problem, build a solution, and turn it into a business — from a small shop or app to a company that could one day employ hundreds.",
+    daylife: "Talks to customers, solves problems on the fly, manages money carefully, and makes decisions without knowing exactly how they'll turn out.",
+    subjects: ["Math", "Economics / Business Studies", "Communication"],
+    skills: ["Comfortable taking risks", "Bias to action — just starts", "Notices problems other people miss"],
+    grow: ["Try a tiny real project (sell something, run a small event)", "Learn basic money management", "Practice pitching an idea to others"],
+    path: "After Class 10 → any stream (Commerce is common) → BBA/B.Com or any degree, or start directly with an idea and a mentor",
+    funfact: "Most successful founders failed at their first idea before their big one worked.",
+  },
+  artist_designer: {
+    title: "Artist / Graphic Designer",
+    emoji: "🎨",
+    desc: "Create visual work — drawings, paintings, digital art, or designs for brands, books, games, and products.",
+    daylife: "Sketches ideas, gets feedback, refines the work using tools (paper or digital), and builds a portfolio over time.",
+    subjects: ["Art & Craft", "Computer applications (design tools)"],
+    skills: ["Strong visual sense", "Genuinely enjoys drawing or creating", "Notices details other people miss"],
+    grow: ["Draw or create something every day", "Learn a design tool (like Canva or Procreate)", "Start a small portfolio of your favorite pieces"],
+    path: "After Class 10 → any stream (Arts is common) → NID/NIFT or other design entrance → Bachelor's in Design or Fine Arts",
+    funfact: "A designer shaped the logo, packaging, and app icons you see every single day.",
+  },
+  writer_journalist: {
+    title: "Writer / Journalist",
+    emoji: "✍️",
+    desc: "Tell stories and report facts — through articles, books, scripts, or investigative journalism that informs and moves people.",
+    daylife: "Researches a topic, talks to people, drafts and edits carefully, meets deadlines, and sometimes travels for a story.",
+    subjects: ["English / Languages", "Social Studies"],
+    skills: ["Loves reading and writing", "Curious about other people's stories", "Notices what's interesting in ordinary things"],
+    grow: ["Write regularly — a journal, blog, or school paper", "Read widely across different kinds of writing", "Practice interviewing people around you"],
+    path: "After Class 10 → any stream (Humanities is common) → BA in Journalism, English, or Mass Communication → internships",
+    funfact: "Many major news stories were broken by journalists who were still early in their careers.",
+  },
+  architect: {
+    title: "Architect",
+    emoji: "🏛️",
+    desc: "Design buildings and spaces — homes, schools, offices — balancing how they look with how they work and feel to be in.",
+    daylife: "Sketches concepts, builds models or 3D renders, meets clients, and works with engineers to make designs real.",
+    subjects: ["Math", "Physics", "Art & Craft"],
+    skills: ["Enjoys drawing or building models", "Can imagine 3D spaces from a flat drawing", "Notices how spaces make people feel"],
+    grow: ["Sketch buildings or spaces you notice", "Try model-building with LEGO or cardboard", "Get comfortable with geometry"],
+    path: "After Class 10 → Science with Math in 11th–12th → NATA or JEE (Paper 2) → B.Arch (5 years)",
+    funfact: "An architect designs everything from your school building to the most iconic monuments in the world.",
+  },
+  athlete: {
+    title: "Sports Professional / Athlete",
+    emoji: "🏅",
+    desc: "Train and compete at a high level in a sport — or work around sport as a coach, trainer, or sports scientist.",
+    daylife: "Trains daily on a strict routine (diet, sleep, practice), competes, and reviews performance to keep improving.",
+    subjects: ["Physical Education", "Biology (for sports science)"],
+    skills: ["Physically disciplined", "Genuinely competitive", "Bounces back after losing"],
+    grow: ["Practice your sport consistently, every day", "Learn about nutrition and recovery", "Study the mental side of competing"],
+    path: "Alongside intensive training at academies or clubs → sports quota admissions, or a sports science / coaching degree",
+    funfact: "Many top athletes started training seriously around the age you are now.",
+  },
+  chef: {
+    title: "Chef / Culinary Professional",
+    emoji: "👨‍🍳",
+    desc: "Create dishes, run kitchens, and turn ingredients into experiences — in restaurants, hotels, or your own food business.",
+    daylife: "Preps ingredients, cooks under real time pressure, tastes and adjusts constantly, and manages a kitchen team during rush hours.",
+    subjects: ["Chemistry (the science of cooking)", "Art (presentation and plating)"],
+    skills: ["Genuinely enjoys cooking or experimenting with food", "Works well under pressure", "Cares about taste and detail"],
+    grow: ["Cook regularly at home and try new recipes", "Learn some basic food science", "Practice working fast without getting messy"],
+    path: "After Class 12 (any stream) → Hotel Management / Culinary degree (like IHM), or a direct apprenticeship in a kitchen",
+    funfact: "Many well-known chefs started out just helping in the kitchen at home.",
+  },
+  armed_forces: {
+    title: "Armed Forces / Civil Services Officer",
+    emoji: "🎖️",
+    desc: "Serve the country — either defending it (Army, Navy, Air Force) or running it (IAS, IPS, and other civil services).",
+    daylife: "Varies hugely — could mean leading troops, flying aircraft, or managing a district's administration and public services.",
+    subjects: ["Social Studies / Civics", "General Knowledge", "Physical fitness"],
+    skills: ["Disciplined", "Leads well under pressure", "Strong sense of duty"],
+    grow: ["Build consistent fitness habits", "Follow current affairs closely", "Take on leadership roles in school (prefect, team captain)"],
+    path: "After Class 12 → NDA exam (for the forces), or graduate first, then UPSC Civil Services exam (for IAS/IPS)",
+    funfact: "Both paths are among the most respected ways to serve millions of people at once.",
+  },
+  filmmaker: {
+    title: "Filmmaker / Content Creator",
+    emoji: "🎬",
+    desc: "Tell stories through video — films, YouTube, documentaries — from the first idea all the way to the final edit.",
+    daylife: "Plans a story, shoots footage, edits it together, and shares it with an audience, solo or with a small crew.",
+    subjects: ["Art & Craft", "English (scriptwriting)", "Computer applications"],
+    skills: ["Instinct for visual storytelling", "Comfortable with cameras and editing tools", "Keeps creating consistently"],
+    grow: ["Make short videos, even just on a phone", "Learn basic editing software", "Study how your favorite creators tell stories"],
+    path: "After Class 10 → any stream → Film / Mass Comm degree, or build a portfolio and channel directly and learn by doing",
+    funfact: "Many successful creators started by filming with nothing more than a phone in their bedroom.",
+  },
+  wildlife_environment: {
+    title: "Wildlife & Environment Scientist",
+    emoji: "🌿",
+    desc: "Study animals, ecosystems, and the environment — and work to protect them, from forests to oceans to the changing climate.",
+    daylife: "Does fieldwork observing animals and habitats, collects data, writes reports, and sometimes campaigns for conservation.",
+    subjects: ["Biology", "Geography", "Environmental Science"],
+    skills: ["Loves animals and the outdoors", "Patient, careful observation", "Comfortable spending time in nature"],
+    grow: ["Spend time closely observing nature nearby", "Learn about local ecosystems and species", "Join environment clubs or clean-up drives"],
+    path: "After Class 10 → Science (Biology) in 11th–12th → BSc in Environmental Science, Zoology, or Forestry → research or conservation work",
+    funfact: "India is one of the most biodiverse countries on Earth — there's a huge amount of important work still to do here.",
+  },
+  psychologist: {
+    title: "Psychologist / Counselor",
+    emoji: "🧠",
+    desc: "Help people understand their thoughts, feelings, and behavior — and support them through challenges.",
+    daylife: "Talks with clients, listens deeply, helps them build ways to cope, and sometimes researches how the mind works.",
+    subjects: ["Biology", "Social Studies", "English"],
+    skills: ["A genuinely good listener", "Curious about why people act the way they do", "Empathetic"],
+    grow: ["Practice really listening — without jumping to fix things", "Read about how the mind and emotions work", "Notice your own reactions and emotions"],
+    path: "After Class 10 → any stream in 11th–12th → BA/BSc Psychology → MA, plus a license for clinical practice",
+    funfact: "Mental health awareness is growing fast — this field is more in demand than ever before.",
+  },
+  vet: {
+    title: "Veterinarian",
+    emoji: "🐾",
+    desc: "Diagnose and treat animals — pets, farm animals, or wildlife — and keep them healthy.",
+    daylife: "Examines animals, performs treatments or surgery, advises owners, and sometimes works with farm or wild animals directly.",
+    subjects: ["Biology", "Chemistry"],
+    skills: ["A genuine love for animals", "Calm and gentle under stress", "Comfortable with hands-on medical work"],
+    grow: ["Spend time caring for animals — pets or shelter volunteering", "Build strong Biology basics", "Practice staying patient in unpredictable situations"],
+    path: "After Class 10 → Science (PCB) in 11th–12th → NEET or a dedicated entrance exam → BVSc (veterinary degree)",
+    funfact: "Vets are often the very first people a family calls when a pet isn't feeling well.",
+  },
+  pilot: {
+    title: "Pilot / Aviation Professional",
+    emoji: "✈️",
+    desc: "Fly aircraft — commercial planes, private jets — or work in air traffic control and aviation management.",
+    daylife: "Runs pre-flight checks, flies under strict procedures, works closely with a crew, and handles changing conditions calmly.",
+    subjects: ["Math", "Physics"],
+    skills: ["Calm, quick decision-making", "Comfortable following precise rules", "Drawn to travel and adventure"],
+    grow: ["Strengthen Math and Physics", "Practice staying calm under pressure", "Learn the basics of how flight actually works"],
+    path: "After Class 12 → Science (PCM) → flying school and a CPL license, or the NDA route via the Air Force",
+    funfact: "Pilots need excellent health and eyesight — worth an early check with a doctor if this is a real dream of yours.",
+  },
+  musician: {
+    title: "Musician / Performing Artist",
+    emoji: "🎵",
+    desc: "Create and perform music — as a singer, instrumentalist, composer, or performer — solo, in a band, or for film and stage.",
+    daylife: "Practices for hours, writes or rehearses music, performs live or records in a studio, and constantly refines technique.",
+    subjects: ["Music", "Art & Craft"],
+    skills: ["A strong musical ear and sense of rhythm", "Comfortable performing in front of others", "Disciplined about daily practice"],
+    grow: ["Practice an instrument or your voice regularly", "Learn to read music or use music-making software", "Perform whenever you get the chance — even just for family"],
+    path: "After Class 10 → any stream, often alongside serious training at a music school → Bachelor's in Music, or self-taught plus gigging and college festivals",
+    funfact: "Many professional musicians started out performing for family and friends long before their first real audience.",
+  },
+  fashion_designer: {
+    title: "Fashion Designer",
+    emoji: "👗",
+    desc: "Design clothes and accessories — sketching ideas, choosing fabrics, and turning concepts into garments people actually want to wear.",
+    daylife: "Sketches designs, selects fabrics and colours, works with tailors or manufacturers, and keeps an eye on trends and what people want next.",
+    subjects: ["Art & Craft", "Economics / Business Studies"],
+    skills: ["A strong sense of style and colour", "Enjoys sketching or altering clothes", "Notices trends before they're obvious"],
+    grow: ["Sketch outfit ideas regularly", "Learn some basic stitching or fabric knowledge", "Follow fashion trends and think about why they work"],
+    path: "After Class 10 → any stream (Arts is common) → NIFT entrance exam → Bachelor's in Fashion Design (4 years)",
+    funfact: "India's fashion industry is one of the largest in the world, blending traditional textiles with global trends.",
+  },
+  sports_management: {
+    title: "Sports Coach / Sports Management",
+    emoji: "🏆",
+    desc: "Train athletes, manage teams, or run the business side of sport — coaching, strategy, sports science, or event and league management.",
+    daylife: "Plans training sessions, studies opponents and performance data, motivates athletes, and sometimes manages logistics for teams or events.",
+    subjects: ["Physical Education", "Biology (sports science)", "Business Studies"],
+    skills: ["Understands a sport deeply, even without being the top player", "Good at motivating and organizing others", "Enjoys strategy and analysis"],
+    grow: ["Study the tactics side of a sport you love, not just the playing", "Practice organizing matches or practice sessions", "Learn the basics of sports science or nutrition"],
+    path: "After Class 12 → a sports science, physical education, or sports management degree → coaching certifications or roles with teams, academies, or leagues",
+    funfact: "Some of the most influential people in sport today never played professionally — they coached, managed, or built the business around it.",
+  },
+  finance_professional: {
+    title: "Finance Professional (CA / Analyst / Banker)",
+    emoji: "💰",
+    desc: "Work with money at scale — auditing companies, analyzing investments, managing budgets, or advising people and businesses on financial decisions.",
+    daylife: "Studies numbers and reports, builds financial models, advises clients or leadership, and makes sure money is being tracked and used correctly.",
+    subjects: ["Math", "Economics / Business Studies", "Accountancy"],
+    skills: ["Comfortable with numbers and detail", "Enjoys solving practical money problems", "Trustworthy with responsibility"],
+    grow: ["Learn how budgeting, saving, and investing actually work", "Practice with numbers — puzzles, data, spreadsheets", "Follow business and market news"],
+    path: "After Class 10 → Commerce in 11th–12th → Chartered Accountancy route, or B.Com/BBA → MBA in Finance, or CFA for investment analysis",
+    funfact: "Chartered Accountancy is one of India's toughest professional exams — and one of the most respected finance qualifications.",
+  },
+  professor: {
+    title: "Professor / Academic Researcher",
+    emoji: "🎓",
+    desc: "Teach and research at the university level — going deep into one subject, publishing new knowledge, and guiding advanced students.",
+    daylife: "Lectures to college students, supervises research projects, writes and publishes papers, and stays at the cutting edge of one specific field.",
+    subjects: ["Whichever subject you'd want to specialize deeply in"],
+    skills: ["Loves going deep into one subject rather than broad", "Enjoys both teaching and original research", "Patient with years of specialized study"],
+    grow: ["Pick a subject you could study for years without getting bored", "Read academic-level material even when it's tough going", "Practice explaining complex ideas simply"],
+    path: "After Class 10 → any stream in 11th–12th → Bachelor's → Master's → PhD in your specialization → teaching and research at a university",
+    funfact: "Professors often spend a decade or more becoming a genuine expert in one very specific corner of a subject.",
+  },
+};
+
+const ROLE_KEYS = Object.keys(ROLES);
+
+const SECTIONS = [
+  { title: "Getting to know you", emoji: "👋", intro: "Let's start with where you're at — there are no right answers here." },
+  { title: "What excites you", emoji: "🧲", intro: "Don't overthink these — go with whatever feels right first." },
+  { title: "How your mind works", emoji: "🧠", intro: "This is about your natural style, not what sounds impressive." },
+  { title: "The life you imagine", emoji: "🌆", intro: "Now let's talk about the kind of day-to-day you picture." },
+  { title: "What matters most", emoji: "⚡", intro: "Last stretch — these are the tiebreakers." },
+];
+
+const TRANSITION_COPY = [
+  "",
+  "Good start — now let's dig into what actually interests you.",
+  "A pattern is starting to show. Now let's look at how your brain likes to work.",
+  "Almost there. Let's talk about the life you picture — not just a job title.",
+  "One last section. These questions settle the close calls.",
+];
+
+const QUESTIONS = [
+  // ── Section 0: Getting to know you ──
+  {
+    section: 0, id: "favorite_subject", text: "Which subject do you enjoy the most in school?", type: "single",
+    options: [
+      { label: "Math", scores: { engineer: 2, software_dev: 2, architect: 1, pilot: 1 } },
+      { label: "Science (Physics / Chemistry / Biology)", scores: { doctor: 2, scientist: 2, vet: 1 } },
+      { label: "Social Studies / History / Civics", scores: { lawyer: 2, armed_forces: 1, writer_journalist: 1 } },
+      { label: "English / Languages", scores: { writer_journalist: 2, teacher: 1, lawyer: 1 } },
+      { label: "Art & Craft", scores: { artist_designer: 3, architect: 1, filmmaker: 1 } },
+      { label: "Computer Science / IT", scores: { software_dev: 3, filmmaker: 1 } },
+      { label: "Physical Education / Sports", scores: { athlete: 3, armed_forces: 1 } },
+      { label: "Music", scores: { musician: 3 } },
+      { label: "Economics / Business Studies", scores: { finance_professional: 2, entrepreneur: 1 } },
+      { label: "Honestly, a bit of everything", scores: { entrepreneur: 1, teacher: 1 } },
+    ],
+  },
+  {
+    section: 0, id: "school_activity", text: "Which of these do you enjoy doing outside class?",
+    subtitle: "Pick up to 2", type: "multi", max: 2,
+    options: [
+      { label: "Building or fixing things", scores: { engineer: 3, software_dev: 1 } },
+      { label: "Reading books", scores: { writer_journalist: 2, teacher: 1, scientist: 1 } },
+      { label: "Playing sports", scores: { athlete: 3 } },
+      { label: "Drawing or painting", scores: { artist_designer: 3 } },
+      { label: "Taking care of pets or plants", scores: { vet: 2, wildlife_environment: 2 } },
+      { label: "Organizing events or clubs", scores: { entrepreneur: 2, armed_forces: 1 } },
+      { label: "Debating or arguing your point", scores: { lawyer: 3 } },
+      { label: "Cooking or baking", scores: { chef: 3 } },
+      { label: "Watching or making videos", scores: { filmmaker: 3 } },
+      { label: "Coding or tinkering with apps", scores: { software_dev: 3 } },
+      { label: "Volunteering / helping others", scores: { teacher: 1, psychologist: 2 } },
+      { label: "Performing — dance, music, or drama", scores: { musician: 2, filmmaker: 1, artist_designer: 1 } },
+      { label: "Following business news, budgeting, or saving up for something", scores: { finance_professional: 2 } },
+      { label: "Styling outfits or following fashion trends", scores: { fashion_designer: 2 } },
+      { label: "Coaching or organizing a sports team or match", scores: { sports_management: 2 } },
+    ],
+  },
+  {
+    section: 0, id: "music_affinity", text: "How do you feel about music?", type: "single",
+    options: [
+      { label: "I love singing or playing an instrument and could do it for hours", scores: { musician: 3 } },
+      { label: "I enjoy listening, but I don't really perform", scores: {} },
+      { label: "Not particularly my thing", scores: {} },
+    ],
+  },
+  {
+    section: 0, id: "style_sense", text: "How much do you think about what you (or others) wear?", type: "single",
+    options: [
+      { label: "A lot — I love putting outfits together and have a strong sense of style", scores: { fashion_designer: 3 } },
+      { label: "Sometimes, for a special occasion", scores: {} },
+      { label: "Honestly, not much", scores: {} },
+    ],
+  },
+  {
+    section: 0, id: "animals_affinity", text: "How do you feel about animals?", type: "single",
+    options: [
+      { label: "I love being around them and would happily care for one that's hurt", scores: { vet: 3, wildlife_environment: 2 } },
+      { label: "I like them, but I wouldn't want that as my main job", scores: {} },
+      { label: "Not really my thing", scores: {} },
+    ],
+  },
+  {
+    section: 0, id: "group_role", text: "In a group project, what do you enjoy most?", type: "single",
+    options: [
+      { label: "Leading and organizing the team", scores: { entrepreneur: 2, armed_forces: 2 } },
+      { label: "Doing deep, focused work quietly", scores: { scientist: 2, software_dev: 2, engineer: 1 } },
+      { label: "Making sure everyone's getting along", scores: { teacher: 2, psychologist: 2 } },
+      { label: "Coming up with the wildest ideas", scores: { artist_designer: 2, filmmaker: 2, entrepreneur: 1 } },
+      { label: "Presenting to the class or audience", scores: { lawyer: 2, writer_journalist: 1, entrepreneur: 1 } },
+      { label: "Double-checking everything is correct", scores: { doctor: 1, engineer: 1, vet: 1 } },
+    ],
+  },
+
+  // ── Section 1: What excites you ──
+  {
+    section: 1, id: "curiosity_topics", text: "Which of these topics could you read about for hours?",
+    subtitle: "Pick up to 2", type: "multi", max: 2,
+    options: [
+      { label: "How the human body works", scores: { doctor: 2, vet: 1 } },
+      { label: "How machines and gadgets are built", scores: { engineer: 2, software_dev: 1 } },
+      { label: "Space and the universe", scores: { scientist: 2, pilot: 1 } },
+      { label: "Animals and nature", scores: { vet: 2, wildlife_environment: 2 } },
+      { label: "How businesses make money", scores: { entrepreneur: 2 } },
+      { label: "Made-up stories and imaginary worlds", scores: { writer_journalist: 2, filmmaker: 1 } },
+      { label: "Laws, rights, and fairness", scores: { lawyer: 2, armed_forces: 1 } },
+      { label: "How buildings and cities are designed", scores: { architect: 2 } },
+      { label: "Sports and fitness", scores: { athlete: 2 } },
+      { label: "Food and flavors", scores: { chef: 2 } },
+      { label: "Why people feel and act the way they do", scores: { psychologist: 2, teacher: 1 } },
+      { label: "News and current events", scores: { writer_journalist: 1, armed_forces: 1 } },
+      { label: "How music is made and put together", scores: { musician: 2 } },
+      { label: "Fashion, style, and how clothes are made", scores: { fashion_designer: 2 } },
+      { label: "How money, markets, and investing work", scores: { finance_professional: 2 } },
+      { label: "Sports strategy and team tactics", scores: { sports_management: 2 } },
+      { label: "Going really deep into one academic subject", scores: { professor: 2 } },
+    ],
+  },
+  {
+    section: 1, id: "sports_role_pref", text: "When you watch or play sports, what interests you most?", type: "single",
+    options: [
+      { label: "Being the one competing and performing", scores: { athlete: 3 } },
+      { label: "Figuring out the strategy and coaching the team", scores: { sports_management: 3 } },
+      { label: "Analyzing stats and performance data", scores: { sports_management: 1, finance_professional: 1 } },
+      { label: "Not that fussed about sports, honestly", scores: {} },
+    ],
+  },
+  {
+    section: 1, id: "money_mindset", text: "How do you feel about handling money?", type: "single",
+    options: [
+      { label: "I like tracking, saving, or growing money carefully", scores: { finance_professional: 3 } },
+      { label: "I'd rather spend time creating than counting numbers", scores: { artist_designer: 1, musician: 1 } },
+      { label: "I think about money mainly as fuel to build something bigger", scores: { entrepreneur: 2 } },
+      { label: "I don't think about it much either way", scores: {} },
+    ],
+  },
+  {
+    section: 1, id: "weekend_activity", text: "It's a free Sunday with no homework. What are you most likely doing?", type: "single",
+    options: [
+      { label: "Building, fixing, or taking something apart", scores: { engineer: 3, software_dev: 1 } },
+      { label: "Watching a movie and imagining how it was made", scores: { filmmaker: 3 } },
+      { label: "Playing a sport or working out", scores: { athlete: 3 } },
+      { label: "Reading a book or writing something", scores: { writer_journalist: 3 } },
+      { label: "Helping a family member solve a problem", scores: { psychologist: 2, teacher: 1 } },
+      { label: "Cooking something new", scores: { chef: 3 } },
+      { label: "Sketching or making art", scores: { artist_designer: 3 } },
+      { label: "Playing or building something in a video game", scores: { software_dev: 3 } },
+      { label: "Exploring outdoors, watching animals or bugs", scores: { wildlife_environment: 3, vet: 1 } },
+      { label: "Watching the news or debating something with family", scores: { lawyer: 2, armed_forces: 1 } },
+      { label: "Practicing an instrument or singing", scores: { musician: 3 } },
+      { label: "Planning outfits or browsing fashion", scores: { fashion_designer: 3 } },
+      { label: "Tracking pocket money, savings, or a small budget", scores: { finance_professional: 2 } },
+    ],
+  },
+  {
+    section: 1, id: "admire", text: "Which of these people would you most want to meet?", type: "single",
+    options: [
+      { label: "A doctor who saved someone's life", scores: { doctor: 3 } },
+      { label: "A scientist who discovered something new", scores: { scientist: 3 } },
+      { label: "A creator with millions of views online", scores: { filmmaker: 3 } },
+      { label: "An athlete who won a big championship", scores: { athlete: 3 } },
+      { label: "A business owner who built something from scratch", scores: { entrepreneur: 3 } },
+      { label: "An architect who designed a famous building", scores: { architect: 3 } },
+      { label: "A lawyer who won a landmark case", scores: { lawyer: 3 } },
+      { label: "An armed forces officer", scores: { armed_forces: 3 } },
+      { label: "A musician who sold out a stadium", scores: { musician: 3 } },
+      { label: "A fashion designer whose collection went viral", scores: { fashion_designer: 3 } },
+    ],
+  },
+  {
+    section: 1, id: "creativity_vs_logic", text: "When solving a problem, what do you rely on more?", type: "single",
+    options: [
+      { label: "Logic and step-by-step reasoning", scores: { engineer: 2, software_dev: 2, scientist: 1 } },
+      { label: "Imagination and creative ideas", scores: { artist_designer: 2, filmmaker: 1, entrepreneur: 1 } },
+      { label: "Gut feeling and past experience", scores: { chef: 1, athlete: 1, entrepreneur: 1 } },
+      { label: "Talking it through with others", scores: { teacher: 1, psychologist: 2, lawyer: 1 } },
+    ],
+  },
+
+  // ── Section 2: How your mind works ──
+  {
+    section: 2, id: "problem_instinct", text: "You're given a totally new problem you've never faced. What's your first move?", type: "single",
+    options: [
+      { label: "Break it into smaller steps and tackle one at a time", scores: { engineer: 2, software_dev: 2 } },
+      { label: "Look up how someone else solved something similar", scores: { scientist: 2, doctor: 1 } },
+      { label: "Talk to people who might know more", scores: { teacher: 1, psychologist: 1, lawyer: 1 } },
+      { label: "Sketch out a few different approaches", scores: { artist_designer: 2, architect: 2 } },
+      { label: "Just start trying things and learn as you go", scores: { entrepreneur: 3, chef: 1 } },
+      { label: "Think about what's fair to everyone involved", scores: { lawyer: 2, armed_forces: 1 } },
+    ],
+  },
+  {
+    section: 2, id: "frustration", text: "Which of these would frustrate you the most?", type: "single",
+    options: [
+      { label: "Sitting still for a long time", scores: { athlete: 2, chef: 1 }, anti: ["scientist"] },
+      { label: "Not having clear rules or instructions", scores: { doctor: 1, engineer: 2 }, anti: ["entrepreneur", "filmmaker"] },
+      { label: "Working alone for long stretches", scores: { teacher: 2, psychologist: 2 }, anti: ["scientist", "software_dev"] },
+      { label: "Being told exactly how to do something, with no room to be creative", scores: { artist_designer: 3, entrepreneur: 2 }, anti: ["armed_forces"] },
+      { label: "Things being messy or disorganized", scores: { engineer: 2, doctor: 1 }, anti: ["filmmaker"] },
+      { label: "Not knowing if your work is actually helping anyone", scores: { teacher: 2, vet: 1, doctor: 1 }, anti: ["entrepreneur"] },
+    ],
+  },
+  {
+    section: 2, id: "explain_style", text: "You understand something really well and want to explain it to a friend. How do you do it?", type: "single",
+    options: [
+      { label: "Draw a diagram or picture", scores: { architect: 2, engineer: 2, artist_designer: 1 } },
+      { label: "Tell it like a story", scores: { writer_journalist: 3, filmmaker: 2, teacher: 1 } },
+      { label: "Show them step-by-step, hands-on", scores: { engineer: 2, chef: 2, vet: 1 } },
+      { label: "Use facts and evidence to prove your point", scores: { scientist: 3, doctor: 1, lawyer: 1 } },
+      { label: "Just show them a working example", scores: { software_dev: 3, engineer: 1 } },
+    ],
+  },
+  {
+    section: 2, id: "no_clear_answer", text: "How do you feel when there's no single right answer to a question?", type: "single",
+    options: [
+      { label: "I like it — that's where things get interesting", scores: { entrepreneur: 3, artist_designer: 2, scientist: 1 } },
+      { label: "It's fine, as long as I have some direction", scores: { architect: 1, writer_journalist: 1 } },
+      { label: "I'd rather have a clear goal, then figure out how myself", scores: { engineer: 2, software_dev: 1 } },
+      { label: "It stresses me out — I like knowing what's expected", scores: { doctor: 1, vet: 1, armed_forces: 1 } },
+    ],
+  },
+  {
+    section: 2, id: "word_pair", text: "Which pair of words feels most like you?", type: "single",
+    options: [
+      { label: "Curious + Logical", scores: { scientist: 3, engineer: 2, software_dev: 1 } },
+      { label: "Creative + Expressive", scores: { artist_designer: 3, filmmaker: 2, writer_journalist: 1 } },
+      { label: "Caring + Patient", scores: { doctor: 2, teacher: 2, vet: 2, psychologist: 1 } },
+      { label: "Bold + Persuasive", scores: { lawyer: 2, entrepreneur: 2, armed_forces: 1 } },
+      { label: "Disciplined + Focused", scores: { athlete: 2, armed_forces: 2, pilot: 1 } },
+      { label: "Precise + Detail-oriented", scores: { engineer: 2, architect: 2, chef: 1 } },
+      { label: "Rhythmic + Expressive", scores: { musician: 3 } },
+      { label: "Stylish + Observant", scores: { fashion_designer: 2, artist_designer: 1 } },
+      { label: "Analytical + Careful with money", scores: { finance_professional: 3 } },
+      { label: "Deep-thinking + Specialized", scores: { professor: 3 } },
+      { label: "Strategic + Team-focused", scores: { sports_management: 3 } },
+    ],
+  },
+  {
+    section: 2, id: "depth_vs_breadth", text: "Would you rather know a little about a lot of things, or a lot about one thing?", type: "single",
+    options: [
+      { label: "A lot about one very specific thing", scores: { professor: 3, scientist: 1 } },
+      { label: "A little about a lot of different things", scores: { entrepreneur: 1, writer_journalist: 1, teacher: 1 } },
+      { label: "Depends completely on the subject", scores: {} },
+    ],
+  },
+
+  // ── Section 3: The life you imagine ──
+  {
+    section: 3, id: "environment", text: "Where do you picture yourself working someday?", type: "single",
+    options: [
+      { label: "A hospital or clinic", scores: { doctor: 3, vet: 1 } },
+      { label: "A lab or research center", scores: { scientist: 3 } },
+      { label: "An office or startup", scores: { entrepreneur: 2, software_dev: 1 } },
+      { label: "Outdoors — forests, farms, or fields", scores: { wildlife_environment: 3, athlete: 1 } },
+      { label: "A courtroom", scores: { lawyer: 3 } },
+      { label: "A film set or studio", scores: { filmmaker: 3, artist_designer: 1 } },
+      { label: "A kitchen", scores: { chef: 3 } },
+      { label: "A classroom", scores: { teacher: 3 } },
+      { label: "Wherever duty calls — it could be anywhere", scores: { armed_forces: 3 } },
+      { label: "A stadium or sports ground", scores: { athlete: 3 } },
+      { label: "Up in the sky, or around an airport", scores: { pilot: 3 } },
+      { label: "A recording studio or on stage performing", scores: { musician: 3 } },
+      { label: "A fashion studio or design house", scores: { fashion_designer: 3 } },
+      { label: "A university lecture hall or research office", scores: { professor: 3 } },
+      { label: "A bank, finance firm, or trading floor", scores: { finance_professional: 3 } },
+      { label: "On the sidelines, coaching or managing a team", scores: { sports_management: 3 } },
+    ],
+  },
+  {
+    section: 3, id: "hands_or_screen", text: "Which sounds more like your ideal working day?", type: "single",
+    options: [
+      { label: "Working with my hands, building or fixing things", scores: { engineer: 2, chef: 1, vet: 1 } },
+      { label: "Working on a screen, solving logical problems", scores: { software_dev: 3, scientist: 1 } },
+      { label: "Talking to and helping people face-to-face", scores: { teacher: 2, psychologist: 2, doctor: 1 } },
+      { label: "Being outdoors, active and moving", scores: { athlete: 2, wildlife_environment: 2 } },
+      { label: "Creating something visual or artistic", scores: { artist_designer: 3, architect: 1 } },
+    ],
+  },
+  {
+    section: 3, id: "adventure", text: "How do you feel about risk and adventure?", type: "single",
+    options: [
+      { label: "Love it — new and unpredictable is exciting", scores: { pilot: 2, armed_forces: 2, entrepreneur: 2 } },
+      { label: "Enjoy some risk, as long as I'm well prepared", scores: { athlete: 1, chef: 1 } },
+      { label: "Prefer things safe and predictable", scores: { teacher: 1, engineer: 1 } },
+      { label: "Depends entirely on the day", scores: {} },
+    ],
+  },
+  {
+    section: 3, id: "helping", text: "How important is it that your work directly helps people?", type: "single",
+    options: [
+      { label: "It's the main reason I'd choose a job", scores: { doctor: 2, teacher: 2, psychologist: 2, vet: 1 } },
+      { label: "Important, but not the only thing", scores: { lawyer: 1, armed_forces: 1 } },
+      { label: "I care more about building or creating something", scores: { engineer: 1, artist_designer: 1, software_dev: 1 } },
+      { label: "I care more about growing something — a business, an idea", scores: { entrepreneur: 2 } },
+    ],
+  },
+  {
+    section: 3, id: "physical_activity", text: "How much physical activity do you want in your future job?", type: "single",
+    options: [
+      { label: "A lot — I want to be moving or active most of the day", scores: { athlete: 3, wildlife_environment: 1, chef: 1 } },
+      { label: "Some — a mix of activity and desk work", scores: { vet: 1, engineer: 1, doctor: 1 } },
+      { label: "Not much — I'm happiest doing focused mental work", scores: { scientist: 1, software_dev: 1, writer_journalist: 1 } },
+    ],
+  },
+  {
+    section: 3, id: "subjects_hardwork", text: "Which would you rather spend years getting really good at?", type: "single",
+    options: [
+      { label: "Understanding how the human body and diseases work", scores: { doctor: 3 } },
+      { label: "Understanding how machines and systems work", scores: { engineer: 3 } },
+      { label: "Understanding numbers, code, and logic", scores: { software_dev: 3 } },
+      { label: "Understanding how people think and feel", scores: { psychologist: 3 } },
+      { label: "Understanding stories and how to tell them well", scores: { writer_journalist: 2, filmmaker: 2 } },
+      { label: "Understanding how to build and run a business", scores: { entrepreneur: 3 } },
+      { label: "Understanding music theory and performance", scores: { musician: 3 } },
+      { label: "Understanding fashion, textiles, and design", scores: { fashion_designer: 3 } },
+      { label: "Understanding markets, money, and investments", scores: { finance_professional: 3 } },
+      { label: "Becoming a specialist in one advanced academic field", scores: { professor: 3 } },
+      { label: "Understanding team strategy and athletic performance", scores: { sports_management: 3 } },
+    ],
+  },
+
+  // ── Section 4: What matters most ──
+  {
+    section: 4, id: "values_rank", text: "What matters most to you in your future career?",
+    subtitle: "Tap to rank your top 3 in priority order", type: "rank", max: 3,
+    options: [
+      { label: "Money and financial security", scores: { entrepreneur: 2, lawyer: 2, pilot: 1, engineer: 1 } },
+      { label: "Helping others directly", scores: { doctor: 3, teacher: 2, vet: 2, psychologist: 2 } },
+      { label: "Fame or recognition", scores: { filmmaker: 2, athlete: 2, artist_designer: 1 } },
+      { label: "Freedom to be creative", scores: { artist_designer: 3, filmmaker: 2, entrepreneur: 1 } },
+      { label: "Stability and predictability", scores: { teacher: 2, engineer: 1, armed_forces: 1 } },
+      { label: "Adventure and new experiences", scores: { pilot: 2, armed_forces: 2, wildlife_environment: 1, entrepreneur: 1 } },
+      { label: "Making a scientific or tech breakthrough", scores: { scientist: 3, software_dev: 1 } },
+      { label: "Serving the country", scores: { armed_forces: 3 } },
+    ],
+  },
+  {
+    section: 4, id: "shadow", text: "If you could shadow someone for a day, who would you pick?",
+    subtitle: "Pick up to 2", type: "multi", max: 2,
+    options: [
+      { label: "A doctor doing hospital rounds", scores: { doctor: 4 } },
+      { label: "A developer building an app", scores: { software_dev: 4 } },
+      { label: "A scientist running an experiment", scores: { scientist: 4 } },
+      { label: "A teacher running a classroom", scores: { teacher: 4 } },
+      { label: "A lawyer arguing in court", scores: { lawyer: 4 } },
+      { label: "An entrepreneur pitching investors", scores: { entrepreneur: 4 } },
+      { label: "An artist creating a mural or design", scores: { artist_designer: 4 } },
+      { label: "A journalist chasing a big story", scores: { writer_journalist: 4 } },
+      { label: "An architect touring a construction site", scores: { architect: 4 } },
+      { label: "An athlete training for a championship", scores: { athlete: 4 } },
+      { label: "A chef running a kitchen during rush hour", scores: { chef: 4 } },
+      { label: "An armed forces officer on duty", scores: { armed_forces: 4 } },
+      { label: "A filmmaker directing a shoot", scores: { filmmaker: 4 } },
+      { label: "A researcher tracking wildlife", scores: { wildlife_environment: 4 } },
+      { label: "A psychologist counseling a client", scores: { psychologist: 4 } },
+      { label: "A vet treating an injured animal", scores: { vet: 4 } },
+      { label: "A pilot flying a plane", scores: { pilot: 4 } },
+      { label: "A musician performing live", scores: { musician: 4 } },
+      { label: "A fashion designer at a photoshoot", scores: { fashion_designer: 4 } },
+      { label: "A coach strategizing before a big match", scores: { sports_management: 4 } },
+      { label: "A finance analyst studying the stock market", scores: { finance_professional: 4 } },
+      { label: "A professor lecturing to a packed hall", scores: { professor: 4 } },
+    ],
+  },
+  {
+    section: 4, id: "gut_check", text: "Final gut check — which sentence sounds most like you?", type: "single",
+    options: [
+      { label: "I want to save lives or heal people", scores: { doctor: 3, vet: 2 } },
+      { label: "I want to build things that work better", scores: { engineer: 3, software_dev: 2 } },
+      { label: "I want to discover something no one has found before", scores: { scientist: 3 } },
+      { label: "I want to create things that move people", scores: { artist_designer: 2, filmmaker: 2, writer_journalist: 2 } },
+      { label: "I want to fight for what's fair", scores: { lawyer: 3 } },
+      { label: "I want to build my own thing from scratch", scores: { entrepreneur: 3 } },
+      { label: "I want to serve my country", scores: { armed_forces: 3 } },
+      { label: "I want to be the best at a sport", scores: { athlete: 3 } },
+      { label: "I want to help people understand themselves better", scores: { psychologist: 2, teacher: 2 } },
+      { label: "I want to perform and move an audience", scores: { musician: 3, filmmaker: 1 } },
+      { label: "I want to design things people wear and love", scores: { fashion_designer: 3 } },
+      { label: "I want to master the numbers behind big decisions", scores: { finance_professional: 3 } },
+      { label: "I want to become a true expert in one subject", scores: { professor: 3 } },
+      { label: "I want to help a team win through strategy", scores: { sports_management: 3 } },
+    ],
+  },
+];
+
+function computeResults(answers) {
+  const scores = {};
+  ROLE_KEYS.forEach((r) => { scores[r] = 0; });
+
+  Object.entries(answers).forEach(([qId, answer]) => {
+    const question = QUESTIONS.find((q) => q.id === qId);
+    if (!question) return;
+
+    const processOpt = (opt, weight) => {
+      if (opt.scores) {
+        Object.entries(opt.scores).forEach(([role, pts]) => {
+          scores[role] = (scores[role] || 0) + pts * weight;
+        });
+      }
+      if (opt.anti) {
+        opt.anti.forEach((role) => { scores[role] = (scores[role] || 0) - 2; });
+      }
+    };
+
+    if (question.type === "single" && typeof answer === "number") {
+      const opt = question.options[answer];
+      if (opt) processOpt(opt, 1);
+    } else if (question.type === "multi" && Array.isArray(answer)) {
+      answer.forEach((idx) => {
+        const opt = question.options[idx];
+        if (opt) processOpt(opt, 1);
+      });
+    } else if (question.type === "rank" && Array.isArray(answer)) {
+      answer.forEach((idx, rank) => {
+        const opt = question.options[idx];
+        const weight = rank === 0 ? 1.5 : rank === 1 ? 1 : 0.6;
+        if (opt) processOpt(opt, weight);
+      });
+    }
+  });
+
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  // Top 4 best matches + 1 wildcard (5th-highest, framed as "worth a look")
+  const topRoles = sorted.slice(0, 4).map(([key, score]) => ({
+    key, score, ...ROLES[key], isWildcard: false,
+  }));
+  if (sorted.length > 4) {
+    const wc = sorted[4];
+    topRoles.push({ key: wc[0], score: wc[1], ...ROLES[wc[0]], isWildcard: true });
+  }
+  return topRoles;
+}
+
+// Turns a stored answer (index, array of indices, or ranked array) back
+// into a readable label for the printable report.
+function formatAnswer(question, answer) {
+  if (answer === undefined || answer === null) return "Skipped";
+  if (question.type === "single" && typeof answer === "number") {
+    const opt = question.options[answer];
+    return opt ? opt.label : "Skipped";
+  }
+  if (question.type === "multi" && Array.isArray(answer)) {
+    return answer
+      .map((idx) => question.options[idx] && question.options[idx].label)
+      .filter(Boolean)
+      .join("; ");
+  }
+  if (question.type === "rank" && Array.isArray(answer)) {
+    return answer
+      .map((idx, i) => {
+        const opt = question.options[idx];
+        return opt ? (i + 1) + ". " + opt.label : null;
+      })
+      .filter(Boolean)
+      .join("  ");
+  }
+  return "Skipped";
+}
+
+
+// ══════════════════════════════════════════════════════════
+// Sound effects — generated with the Web Audio API, so no
+// external audio files are needed and the file works fully offline.
+// ══════════════════════════════════════════════════════════
+let audioCtx = null;
+let soundsMuted = false;
+
+function ensureAudio() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AC();
+  }
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+
+function tone(freq, duration, opts) {
+  if (soundsMuted) return;
+  opts = opts || {};
+  const type = opts.type || "sine";
+  const startTime = opts.startTime || 0;
+  const peak = opts.peak != null ? opts.peak : 0.12;
+  try {
+    const ctx = ensureAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    const t0 = ctx.currentTime + startTime;
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.linearRampToValueAtTime(peak, t0 + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(t0);
+    osc.stop(t0 + duration + 0.03);
+  } catch (e) { /* audio not available — fail silently */ }
+}
+
+const SFX = {
+  click: () => tone(700, 0.07, { type: "triangle", peak: 0.1 }),
+  selectOn: () => tone(784, 0.09, { type: "sine", peak: 0.1 }),
+  selectOff: () => tone(392, 0.08, { type: "sine", peak: 0.08 }),
+  confirm: () => { tone(523, 0.1, { type: "sine", peak: 0.11 }); tone(659, 0.13, { type: "sine", startTime: 0.09, peak: 0.11 }); },
+  back: () => { tone(659, 0.09, { type: "sine", peak: 0.09 }); tone(494, 0.11, { type: "sine", startTime: 0.07, peak: 0.09 }); },
+  sectionDone: () => {
+    tone(523, 0.12, { type: "sine", peak: 0.1 });
+    tone(659, 0.12, { type: "sine", startTime: 0.1, peak: 0.1 });
+    tone(784, 0.16, { type: "sine", startTime: 0.2, peak: 0.1 });
+  },
+  reveal: () => {
+    tone(523, 0.14, { type: "triangle", peak: 0.12 });
+    tone(659, 0.14, { type: "triangle", startTime: 0.11, peak: 0.12 });
+    tone(784, 0.14, { type: "triangle", startTime: 0.22, peak: 0.12 });
+    tone(1047, 0.28, { type: "triangle", startTime: 0.33, peak: 0.13 });
+  },
+  cardOpen: () => tone(880, 0.11, { type: "sine", peak: 0.1 }),
+  toggleOn: () => tone(660, 0.08, { type: "sine", peak: 0.08 }),
+  toggleOff: () => tone(440, 0.08, { type: "sine", peak: 0.06 }),
+};
+
+function toggleMute() {
+  soundsMuted = !soundsMuted;
+  const btn = document.getElementById("muteBtn");
+  btn.textContent = soundsMuted ? "🔇" : "🔊";
+  if (!soundsMuted) SFX.click();
+}
+
+// ══════════════════════════════════════════════════════════
+// App state + rendering (plain JS / DOM — no framework)
+// ══════════════════════════════════════════════════════════
+const state = {
+  screen: "welcome", // welcome | transition | quiz | results | detail | report
+  qIndex: 0,
+  answers: {},
+  multiSel: [],
+  rankSel: [],
+  results: null,
+  detailIndex: 0,
+};
+
+function esc(str) {
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function currentQuestion() { return QUESTIONS[state.qIndex] || null; }
+function currentSection() { const q = currentQuestion(); return q ? SECTIONS[q.section] : null; }
+
+function getMatchReasons(role) {
+  const r = [];
+  const findQ = (id) => QUESTIONS.find((qq) => qq.id === id);
+
+  const topicsQ = findQ("curiosity_topics");
+  const topics = state.answers.curiosity_topics;
+  if (Array.isArray(topics) && topicsQ) {
+    topics.forEach((idx) => {
+      const opt = topicsQ.options[idx];
+      if (opt && opt.scores && opt.scores[role.key]) r.push("You're drawn to: " + opt.label.toLowerCase());
+    });
+  }
+  const wpQ = findQ("word_pair");
+  const wp = state.answers.word_pair;
+  if (typeof wp === "number" && wpQ && wpQ.options[wp]) {
+    const opt = wpQ.options[wp];
+    if (opt.scores && opt.scores[role.key]) r.push("You describe yourself as: " + opt.label);
+  }
+  const gcQ = findQ("gut_check");
+  const gc = state.answers.gut_check;
+  if (typeof gc === "number" && gcQ && gcQ.options[gc]) {
+    const opt = gcQ.options[gc];
+    if (opt.scores && opt.scores[role.key]) r.push("Your gut check: " + opt.label.toLowerCase());
+  }
+  const shadowQ = findQ("shadow");
+  const shadow = state.answers.shadow;
+  if (Array.isArray(shadow) && shadowQ && r.length < 3) {
+    shadow.forEach((idx) => {
+      const opt = shadowQ.options[idx];
+      if (opt && opt.scores && opt.scores[role.key]) r.push("You'd want to shadow: " + opt.label.toLowerCase());
+    });
+  }
+  return r.slice(0, 3);
+}
+
+// ── Navigation ──
+function navigateToQuestion(idx) {
+  const target = QUESTIONS[idx];
+  if (target) {
+    const prior = state.answers[target.id];
+    state.multiSel = target.type === "multi" && Array.isArray(prior) ? prior.slice() : [];
+    state.rankSel = target.type === "rank" && Array.isArray(prior) ? prior.slice() : [];
+  }
+  state.qIndex = idx;
+  state.screen = "quiz";
+  render();
+}
+
+function goNext() {
+  const q = currentQuestion();
+  const nextIdx = state.qIndex + 1;
+  if (nextIdx >= QUESTIONS.length) {
+    state.results = computeResults(state.answers);
+    SFX.reveal();
+    state.screen = "results";
+    render();
+    return;
+  }
+  const nextQ = QUESTIONS[nextIdx];
+  if (nextQ.section !== q.section) {
+    SFX.sectionDone();
+    state.screen = "transition";
+    render();
+  } else {
+    navigateToQuestion(nextIdx);
+  }
+}
+
+function goBack() {
+  if (state.qIndex <= 0) return;
+  SFX.back();
+  navigateToQuestion(state.qIndex - 1);
+}
+
+function handleSingle(idx) {
+  const q = currentQuestion();
+  state.answers = Object.assign({}, state.answers, { [q.id]: idx });
+  SFX.click();
+  render(); // show selection instantly
+  setTimeout(goNext, 250);
+}
+
+function toggleMulti(idx) {
+  const q = currentQuestion();
+  const pos = state.multiSel.indexOf(idx);
+  if (pos >= 0) { state.multiSel.splice(pos, 1); SFX.selectOff(); }
+  else {
+    if (state.multiSel.length >= (q.max || 2)) return;
+    state.multiSel.push(idx);
+    SFX.selectOn();
+  }
+  render();
+}
+
+function confirmMulti() {
+  const q = currentQuestion();
+  if (state.multiSel.length === 0) return;
+  state.answers = Object.assign({}, state.answers, { [q.id]: state.multiSel.slice() });
+  state.multiSel = [];
+  SFX.confirm();
+  goNext();
+}
+
+function toggleRank(idx) {
+  const q = currentQuestion();
+  const pos = state.rankSel.indexOf(idx);
+  if (pos >= 0) { state.rankSel.splice(pos, 1); SFX.selectOff(); }
+  else {
+    if (state.rankSel.length >= (q.max || 3)) return;
+    state.rankSel.push(idx);
+    SFX.selectOn();
+  }
+  render();
+}
+
+function confirmRank() {
+  const q = currentQuestion();
+  const needed = q.max || 3;
+  if (state.rankSel.length < needed) return;
+  state.answers = Object.assign({}, state.answers, { [q.id]: state.rankSel.slice() });
+  state.rankSel = [];
+  SFX.confirm();
+  goNext();
+}
+
+function continueFromTransition() {
+  const q = currentQuestion();
+  const nextIdx = QUESTIONS.findIndex((qq, i) => i > state.qIndex && qq.section !== q.section);
+  const target = nextIdx >= 0 ? nextIdx : state.qIndex + 1;
+  SFX.click();
+  navigateToQuestion(target);
+}
+
+function backFromTransition() {
+  SFX.back();
+  navigateToQuestion(state.qIndex);
+}
+
+function restart() {
+  state.screen = "welcome";
+  state.qIndex = 0;
+  state.answers = {};
+  state.results = null;
+  state.detailIndex = 0;
+  state.multiSel = [];
+  state.rankSel = [];
+  SFX.click();
+  render();
+}
+
+function editAnswers() {
+  navigateToQuestion(QUESTIONS.length - 1);
+}
+
+function openDetail(i) {
+  state.detailIndex = i;
+  SFX.cardOpen();
+  state.screen = "detail";
+  render();
+}
+
+function backToResults() {
+  SFX.back();
+  state.screen = "results";
+  render();
+}
+
+function openReport() {
+  SFX.confirm();
+  state.screen = "report";
+  render();
+}
+
+function startQuiz() {
+  SFX.confirm();
+  state.qIndex = 0;
+  state.screen = "quiz";
+  render();
+}
+
+// ── Screen renderers ──
+function renderWelcome() {
+  return (
+    '<div class="wrapper"><div class="container"><div class="centered-full">' +
+    '<div style="font-size:56px;margin-bottom:16px;">🧭</div>' +
+    '<h1 style="font-size:30px;font-weight:800;line-height:1.2;margin-bottom:14px;letter-spacing:-0.025em;">Find your direction</h1>' +
+    '<p style="font-size:16px;color:var(--text-soft);line-height:1.6;margin-bottom:10px;max-width:380px;">27 quick questions. About 10 minutes. No trick questions, no right answers.</p>' +
+    '<p style="font-size:14px;color:var(--text-muted);line-height:1.5;margin-bottom:32px;max-width:360px;">We\'ll look at what you enjoy, how you think, and the kind of life you picture — and match you to 5 careers worth exploring, out of dozens of possibilities.</p>' +
+    '<button class="btn-primary" data-action="start-quiz">Let\'s go</button>' +
+    '<p style="font-size:12px;color:var(--text-muted);margin-top:16px;">This is just to help you explore — not to lock you into anything.</p>' +
+    '</div></div></div>'
+  );
+}
+
+function renderTransition() {
+  const q = currentQuestion();
+  const nextSectionIdx = q.section + 1;
+  const nextSec = SECTIONS[nextSectionIdx] || SECTIONS[0];
+  const copy = TRANSITION_COPY[nextSectionIdx];
+  return (
+    '<div class="wrapper"><div class="container"><div class="centered-full">' +
+    '<div style="font-size:48px;margin-bottom:12px;">' + nextSec.emoji + '</div>' +
+    '<p style="font-size:13px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Section ' + (nextSectionIdx + 1) + ' of 5</p>' +
+    '<h2 style="font-size:24px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;">' + esc(nextSec.title) + '</h2>' +
+    '<p style="font-size:15px;color:var(--text-soft);line-height:1.5;margin-bottom:6px;max-width:360px;">' + esc(nextSec.intro) + '</p>' +
+    (copy ? '<p style="font-size:14px;color:var(--text-muted);font-style:italic;margin-bottom:28px;max-width:340px;">' + esc(copy) + '</p>' : '') +
+    '<button class="btn-primary" data-action="continue-transition">Continue</button>' +
+    '<button class="link-btn" style="margin-top:16px;" data-action="back-transition">← Back to previous question</button>' +
+    '</div></div></div>'
+  );
+}
+
+function renderQuiz() {
+  const q = currentQuestion();
+  const section = currentSection();
+  const progress = (state.qIndex / QUESTIONS.length) * 100;
+
+  let optionsHtml = "";
+  q.options.forEach((opt, idx) => {
+    if (q.type === "single") {
+      const sel = state.answers[q.id] === idx;
+      optionsHtml += '<div class="option' + (sel ? ' selected' : '') + '" data-action="select-single" data-idx="' + idx + '">' +
+        '<div class="radio' + (sel ? ' selected' : '') + '"></div><span style="flex:1;">' + esc(opt.label) + '</span></div>';
+    } else if (q.type === "multi") {
+      const sel = state.multiSel.indexOf(idx) >= 0;
+      optionsHtml += '<div class="option' + (sel ? ' selected' : '') + '" data-action="toggle-multi" data-idx="' + idx + '">' +
+        '<div class="checkbox' + (sel ? ' selected' : '') + '">' + (sel ? '✓' : '') + '</div><span style="flex:1;">' + esc(opt.label) + '</span></div>';
+    } else if (q.type === "rank") {
+      const pos = state.rankSel.indexOf(idx);
+      optionsHtml += '<div class="option' + (pos >= 0 ? ' selected' : '') + '" data-action="toggle-rank" data-idx="' + idx + '">' +
+        '<div class="rank-badge' + (pos >= 0 ? ' selected' : '') + '">' + (pos >= 0 ? pos + 1 : '') + '</div><span style="flex:1;">' + esc(opt.label) + '</span></div>';
+    }
+  });
+
+  let confirmHtml = "";
+  if (q.type === "multi") {
+    const active = state.multiSel.length > 0;
+    confirmHtml = '<button class="confirm-btn' + (active ? ' active' : '') + '" data-action="confirm-multi">Confirm (' + state.multiSel.length + '/' + (q.max || 2) + ' selected)</button>';
+  } else if (q.type === "rank") {
+    const needed = q.max || 3;
+    const active = state.rankSel.length >= needed;
+    confirmHtml = '<button class="confirm-btn' + (active ? ' active' : '') + '" data-action="confirm-rank">' +
+      (active ? 'Confirm ranking' : 'Pick ' + (needed - state.rankSel.length) + ' more') + '</button>';
+  }
+
+  return (
+    '<div class="wrapper">' +
+    '<div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:' + progress + '%"></div></div>' +
+    '<div class="progress-meta"><span class="section-badge">' + section.emoji + ' ' + esc(section.title) + '</span><span>' + (state.qIndex + 1) + '/' + QUESTIONS.length + '</span></div></div>' +
+    '<div class="container"><div style="padding:24px 0 120px;">' +
+    (state.qIndex > 0 ? '<button class="link-btn back-link" data-action="go-back">← Back</button>' : '') +
+    '<h2 style="font-size:21px;font-weight:700;line-height:1.3;margin-bottom:4px;letter-spacing:-0.01em;">' + esc(q.text) + '</h2>' +
+    '<p style="font-size:14px;color:var(--text-muted);margin-bottom:22px;font-weight:500;">' + esc(q.subtitle || (q.type === "single" ? "Pick one" : "")) + '</p>' +
+    optionsHtml + confirmHtml +
+    '</div></div></div>'
+  );
+}
+
+function detailFieldsHtml(role) {
+  return (
+    '<div style="margin-bottom:12px;"><p class="detail-label">What you\'d actually do</p><p style="font-size:13px;color:#3D3652;line-height:1.5;">' + esc(role.desc) + '</p></div>' +
+    '<div style="margin-bottom:12px;"><p class="detail-label">A day in the life</p><p style="font-size:13px;color:#3D3652;line-height:1.5;">' + esc(role.daylife) + '</p></div>' +
+    '<p class="detail-label">Subjects that matter now</p><div style="margin-bottom:14px;">' + role.subjects.map((s) => '<span class="pill pill-green">' + esc(s) + '</span>').join('') + '</div>' +
+    '<p class="detail-label">Signs you\'re already a fit</p><div style="margin-bottom:14px;">' + role.skills.map((s) => '<span class="pill pill-purple">' + esc(s) + '</span>').join('') + '</div>' +
+    '<p class="detail-label">Worth building from now</p><div style="margin-bottom:16px;">' + role.grow.map((s) => '<span class="pill pill-amber">' + esc(s) + '</span>').join('') + '</div>' +
+    '<div style="margin-bottom:12px;"><p class="detail-label">A possible path forward (India)</p><p style="font-size:13px;color:#3D3652;line-height:1.5;">' + esc(role.path) + '</p></div>'
+  );
+}
+
+function renderResults() {
+  const results = state.results;
+  let cardsHtml = "";
+  results.forEach((role, i) => {
+    const isWild = role.isWildcard;
+    const reasons = getMatchReasons(role);
+    cardsHtml += (
+      '<div class="result-card' + (isWild ? ' wildcard' : '') + '" data-action="open-detail" data-idx="' + i + '">' +
+      '<div style="font-size:32px;min-width:40px;text-align:center;">' + role.emoji + '</div>' +
+      '<div style="flex:1;">' +
+      '<span class="badge-match' + (isWild ? ' wildcard' : '') + '">' + (isWild ? 'Wildcard' : ('#' + (i + 1) + ' Match')) + '</span>' +
+      '<h3 style="font-size:17px;font-weight:700;margin:4px 0 2px;letter-spacing:-0.01em;">' + esc(role.title) + '</h3>' +
+      (reasons[0] ? '<p style="font-size:12.5px;color:var(--text-muted);">' + esc(reasons[0]) + '</p>' : '') +
+      '</div><div style="font-size:20px;color:var(--text-muted);">›</div></div>'
+    );
+  });
+
+  return (
+    '<div class="wrapper"><div class="container"><div style="padding-top:36px;padding-bottom:60px;">' +
+    '<div style="text-align:center;margin-bottom:24px;">' +
+    '<div style="font-size:48px;margin-bottom:10px;">✨</div>' +
+    '<h1 style="font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-0.02em;">Your career map</h1>' +
+    '<p style="font-size:15px;color:var(--text-soft);line-height:1.5;">5 careers worth exploring, out of ' + ROLE_KEYS.length + ' we considered. Tap any one for the full picture.</p>' +
+    '</div>' +
+    cardsHtml +
+    '<button class="btn-primary full" data-action="open-report">📄 Download PDF report</button>' +
+    '<div class="action-row">' +
+    '<button class="link-btn" data-action="edit-answers">Edit my answers</button>' +
+    '<button class="link-btn" data-action="restart">Retake quiz</button>' +
+    '</div></div></div></div>'
+  );
+}
+
+function renderDetail() {
+  const role = state.results[state.detailIndex];
+  const isWild = role.isWildcard;
+  const reasons = getMatchReasons(role);
+  const hasPrev = state.detailIndex > 0;
+  const hasNext = state.detailIndex < state.results.length - 1;
+
+  return (
+    '<div class="wrapper"><div class="container"><div style="padding-top:20px;padding-bottom:60px;">' +
+    '<button class="link-btn back-link" data-action="back-results">← All 5 results</button>' +
+    '<div class="detail-hero' + (isWild ? ' wildcard' : '') + '">' +
+    '<div style="font-size:52px;margin-bottom:10px;">' + role.emoji + '</div>' +
+    '<span class="hero-badge">' + (isWild ? 'Wildcard pick' : ('#' + (state.detailIndex + 1) + ' Match')) + '</span>' +
+    '<h1 style="font-size:25px;font-weight:800;margin-top:6px;letter-spacing:-0.02em;">' + esc(role.title) + '</h1>' +
+    '</div>' +
+    (reasons.length ? '<div class="reason-box"><p class="reason-title">Why this fits you</p>' + reasons.map((r) => '<p class="reason-line">• ' + esc(r) + '</p>').join('') + '</div>' : '') +
+    detailFieldsHtml(role) +
+    '<div class="funfact-box"><p class="funfact-title">Good to know</p><p class="funfact-body">' + esc(role.funfact) + '</p></div>' +
+    '<div class="nav-row">' +
+    '<button class="nav-btn" data-action="prev-detail" ' + (hasPrev ? '' : 'disabled') + '>← Previous</button>' +
+    '<button class="nav-btn next" data-action="next-detail" ' + (hasNext ? '' : 'disabled') + '>Next →</button>' +
+    '</div>' +
+    '<div class="action-row"><button class="link-btn" data-action="open-report">Download PDF report</button><button class="link-btn" data-action="restart">Retake quiz</button></div>' +
+    '</div></div></div>'
+  );
+}
+
+function renderReport() {
+  const results = state.results;
+  const answeredQuestions = QUESTIONS.filter((qq) => state.answers[qq.id] !== undefined);
+  const today = new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" });
+
+  let answersHtml = "";
+  answeredQuestions.forEach((qq, i) => {
+    answersHtml += (
+      '<div class="qa-block"><p class="qa-meta">Q' + (i + 1) + ' · ' + esc(SECTIONS[qq.section].title) + '</p>' +
+      '<p class="qa-q">' + esc(qq.text) + '</p>' +
+      '<p class="qa-a">' + esc(formatAnswer(qq, state.answers[qq.id])) + '</p></div>'
+    );
+  });
+
+  let careersHtml = "";
+  results.forEach((role, i) => {
+    const reasons = getMatchReasons(role);
+    careersHtml += (
+      '<div class="career-block"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
+      '<div style="font-size:30px;">' + role.emoji + '</div><div>' +
+      '<span class="badge-match' + (role.isWildcard ? ' wildcard' : '') + '">' + (role.isWildcard ? 'Wildcard' : ('#' + (i + 1) + ' Match')) + '</span>' +
+      '<h3 style="font-size:18px;font-weight:800;margin-top:3px;">' + esc(role.title) + '</h3></div></div>' +
+      (reasons.length ? '<p style="font-size:12.5px;color:#4A3D8F;margin-bottom:8px;line-height:1.5;"><strong>Why this fits you:</strong> ' + esc(reasons.join(' · ')) + '</p>' : '') +
+      '<div style="margin-bottom:12px;"><p class="detail-label">What you\'d actually do</p><p style="font-size:13px;color:#3D3652;">' + esc(role.desc) + '</p></div>' +
+      '<div style="margin-bottom:12px;"><p class="detail-label">A day in the life</p><p style="font-size:13px;color:#3D3652;">' + esc(role.daylife) + '</p></div>' +
+      '<p class="detail-label">Subjects that matter now</p><p style="font-size:13px;color:#3D3652;margin-bottom:10px;">' + esc(role.subjects.join(', ')) + '</p>' +
+      '<p class="detail-label">Signs you\'re already a fit</p><p style="font-size:13px;color:#3D3652;margin-bottom:10px;">' + esc(role.skills.join(', ')) + '</p>' +
+      '<p class="detail-label">Worth building from now</p><p style="font-size:13px;color:#3D3652;margin-bottom:10px;">' + esc(role.grow.join(', ')) + '</p>' +
+      '<div style="margin-bottom:12px;"><p class="detail-label">A possible path forward (India)</p><p style="font-size:13px;color:#3D3652;">' + esc(role.path) + '</p></div>' +
+      '<div><p class="detail-label">Good to know</p><p style="font-size:13px;color:#3D3652;">' + esc(role.funfact) + '</p></div>' +
+      '</div>'
+    );
+  });
+
+  return (
+    '<div class="wrapper" style="background:#fff;"><div style="width:100%;max-width:720px;padding:0 24px;">' +
+    '<div class="report-header no-print">' +
+    '<button class="link-btn" data-action="back-results" style="text-decoration:none;">← Back to results</button>' +
+    '<button class="btn-primary small" data-action="print-report">🖨️ Print / Save as PDF</button>' +
+    '</div>' +
+    '<p class="report-hint no-print">In the print dialog, choose <strong>"Save as PDF"</strong> as the destination to download this report.</p>' +
+    '<div class="report-title"><div style="font-size:40px;margin-bottom:8px;">🧭</div>' +
+    '<h1 style="font-size:24px;font-weight:800;margin-bottom:6px;">My Career Discovery Report</h1>' +
+    '<p style="font-size:13px;color:var(--text-muted);">Generated on ' + esc(today) + '</p></div>' +
+    '<h2 style="font-size:17px;font-weight:800;margin-bottom:12px;">My Answers</h2>' +
+    answersHtml +
+    '<h2 style="font-size:17px;font-weight:800;margin:32px 0 12px;">My 5 Suggested Careers</h2>' +
+    careersHtml +
+    '<div class="no-print" style="text-align:center;padding:8px 0 40px;"><button class="link-btn" data-action="back-results">← Back to results</button></div>' +
+    '</div></div>'
+  );
+}
+
+function render() {
+  const app = document.getElementById("app");
+  if (state.screen === "welcome") app.innerHTML = renderWelcome();
+  else if (state.screen === "transition") app.innerHTML = renderTransition();
+  else if (state.screen === "quiz") app.innerHTML = renderQuiz();
+  else if (state.screen === "results") app.innerHTML = renderResults();
+  else if (state.screen === "detail") app.innerHTML = renderDetail();
+  else if (state.screen === "report") app.innerHTML = renderReport();
+  window.scrollTo(0, 0);
+}
+
+// ── Event delegation: one listener handles every screen ──
+document.addEventListener("click", function (e) {
+  const el = e.target.closest("[data-action]");
+  if (!el || el.disabled) return;
+  const action = el.dataset.action;
+  const idx = el.dataset.idx !== undefined ? parseInt(el.dataset.idx, 10) : null;
+
+  switch (action) {
+    case "start-quiz": startQuiz(); break;
+    case "select-single": handleSingle(idx); break;
+    case "toggle-multi": toggleMulti(idx); break;
+    case "confirm-multi": confirmMulti(); break;
+    case "toggle-rank": toggleRank(idx); break;
+    case "confirm-rank": confirmRank(); break;
+    case "continue-transition": continueFromTransition(); break;
+    case "back-transition": backFromTransition(); break;
+    case "go-back": goBack(); break;
+    case "restart": restart(); break;
+    case "edit-answers": editAnswers(); break;
+    case "open-detail": openDetail(idx); break;
+    case "back-results": backToResults(); break;
+    case "prev-detail": if (state.detailIndex > 0) openDetail(state.detailIndex - 1); break;
+    case "next-detail": if (state.detailIndex < state.results.length - 1) openDetail(state.detailIndex + 1); break;
+    case "open-report": openReport(); break;
+    case "print-report": window.print(); break;
+  }
+});
+
+document.getElementById("muteBtn").addEventListener("click", toggleMute);
+
+render();
+</script>
+</body>
+</html>
